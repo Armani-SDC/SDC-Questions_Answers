@@ -1,6 +1,12 @@
+
+
+DROP SCHEMA IF EXISTS questionSchema CASCADE;
+
 CREATE SCHEMA questionSchema;
 
-CREATE TABLE QuestionResults (
+DROP TABLE IF EXISTS questions CASCADE;
+
+CREATE TABLE questions (
   id serial PRIMARY KEY,
   product_id integer,
   body text,
@@ -9,9 +15,16 @@ CREATE TABLE QuestionResults (
   asker_email text,
   reported boolean,
   helpful integer
+  
 );
 
-CREATE TABLE Answers (
+COPY questions FROM '/Users/kylemartinelli/HackReactor/SDC-Questions_Answers/questions/questionsData/questions.csv' delimiter ',' header csv;
+
+
+
+
+DROP TABLE IF EXISTS answers CASCADE;
+CREATE TABLE answers (
   id serial PRIMARY KEY,
   question_id integer,
   answer_body text,
@@ -22,16 +35,17 @@ CREATE TABLE Answers (
   helpful integer
 );
 
+COPY answers FROM '/Users/kylemartinelli/HackReactor/SDC-Questions_Answers/questions/questionsData/answers.csv' delimiter ',' header csv;
 
-CREATE TABLE AnswerPhotos (
+DROP TABLE IF EXISTS photos CASCADE;
+CREATE TABLE photos (
   id serial PRIMARY KEY,
   answer_id integer,
   photo_url text
 );
--- CREATE TABLE ProductQuestions (
 
--- );
+COPY photos FROM '/Users/kylemartinelli/HackReactor/SDC-Questions_Answers/questions/questionsData/answers_photos.csv' delimiter ',' header csv;
 
-ALTER TABLE Answers ADD FOREIGN KEY (question_id) REFERENCES QuestionResults (question_id);
+ALTER TABLE answers ADD FOREIGN KEY (question_id) REFERENCES questions (id);
 
-ALTER TABLE AnswerPhotos ADD FOREIGN KEY (answer_id) REFERENCES Answers (id)
+ALTER TABLE photos ADD FOREIGN KEY (answer_id) REFERENCES answers (id);
