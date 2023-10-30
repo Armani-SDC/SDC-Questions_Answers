@@ -1,5 +1,5 @@
 <h1>Filler Co. API</h1>
-This API supports the ratings and reviews module for Filler Co. https://github.com/filler-co/FILLER
+This API supports the questions and answers module for Filler Co. https://github.com/filler-co/FILLER
 <h2>Application Overview</h2>
 <h3>Description</h3>
  This application is a redesigned and improved version of Filler.co’s, an online retail storefront, API built with Node.js and express with a Postgres database.
